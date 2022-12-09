@@ -1,0 +1,25 @@
+================================================================================
+                                                            *backlinks.nvim*
+
+backlinks.nvim is a neovim lua plugin for finding files that back link to the
+current file.
+
+To use the plugin, set the following configuration options in your vimrc file:
+
+" Set search directory 
+let g:backlinks_search_dir = "~/vimwiki"
+
+" Set exclude patterns, default is none
+let g:backlinks_exclude_pattern = "\/assets\/"
+
+Then, run the following command in neovim:
+
+:lua require("backlinks").find_files_back_linked()
+
+This will list all the files in the `backlinks_search_dir` that back link to
+the current file.
+
+For more information, please see the plugin's GitHub page:
+https://github.com/hulufei/backlinks.nvim
+
+================================================================================
