@@ -1,7 +1,7 @@
 # README
  
 **backlinks.nvim** is a neovim lua plugin that allows you to find all the files in
-a given directory that back link to the current file.This can be useful for
+a given directory that back link to the current file. This can be useful for
 managing and navigating large collections of files, such as with [vimwiki](https://github.com/vimwiki/vimwiki).
 
 ## Installation
@@ -36,12 +36,12 @@ To make it easier to use the plugin, you can add a keymap shortcut. For example,
 you can add the following line to map the `<leader> b` key to the
 `find_files_back_linked` function:
 
-```
+```lua
 vim.api.nvim_set_keymap(
-	"n",
-	"<leader>b",
-	"<cmd>lua require('backlinks').find_files_back_linked()<cr>",
-	{ noremap = true, silent = true }
+  "n",
+  "<leader>b",
+  "<cmd>lua require('backlinks').find_files_back_linked()<cr>",
+  { noremap = true, silent = true }
 )
 ```
 
