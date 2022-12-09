@@ -13,6 +13,16 @@ end
 function M.find_files_back_linked(dirname)
 	-- Get current filename
 	local filename = vim.fn.expand("%:t")
+	-- Trim filename's extension(some links without extension)
+	filename = string.gsub(filename, "%.%a+$", "")
+	-- Lua use pattern instead of regex
+	-- http://www.lua.org/manual/5.1/manual.html#5.4.1
+	-- Escape magic characters to construct link_pattern correctly
+	filename = string.gsub(filename, "([%.%+%-%*%?%[%]%^%$%(%)%%])", "%%%1")
+	-- TOIMPROVE:
+	-- Currently only support plain markdown links `[..]()`, it works for me
+	-- Maybe support links like `[[]]` in the future, PRs are welcome
+	local link_pattern = "%[[^]]+%]%(.*" .. filename .. ".*%)"
 
 	-- Search directory
 	dirname = dirname or vim.g.backlinks_search_dir
@@ -28,7 +38,7 @@ function M.find_files_back_linked(dirname)
 		local lines = vim.fn.readfile(file)
 
 		for lnum, line in ipairs(lines) do
-			if string.match(line, filename) then
+			if string.match(line, link_pattern) then
 				table.insert(results, {
 					filename = file,
 					lnum = lnum,
